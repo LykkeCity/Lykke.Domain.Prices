@@ -1,5 +1,8 @@
 ﻿{
   "version": "0.1.0-*",
+  "authors": [ "pegilo" ],
+  "description": "Lykke shared types related to pricing domain",
+  "title": "Lykke.Domain.Prices",
 
   "dependencies": {
     "NETStandard.Library": "1.6.0"
@@ -9,5 +12,14 @@
     "netstandard1.6": {
       "imports": "dnxcore50"
     }
+  },
+
+  "packOptions": {
+    "summary": "Lykke shared types related to pricing domain",
+    "tags": [ "domain", "pricing", "lykke" ],
+    "owners": [ "Lykke" ],
+    "licenseUrl": "https://github.com/LykkeCity/Lykke.Domain.Prices/blob/master/LICENSE",
+    "projectUrl": "https://github.com/LykkeCity/Lykke.Domain.Prices",
+    "requireLicenseAcceptance": false
   }
 }
