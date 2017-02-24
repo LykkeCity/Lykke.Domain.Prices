@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Lykke.Domain.Prices.Contracts
 {
-    public interface ICandle : IEquatable<ICandle>
+    public interface IFeedCandle
     {
         DateTime DateTime { get; }
         double Open { get; }

@@ -10,7 +10,7 @@ namespace Lykke.Domain.Prices
 {
     public static class CandleExtensions
     {
-        public static ICandle MergeWith(this ICandle target, ICandle update)
+        public static IFeedCandle MergeWith(this IFeedCandle target, IFeedCandle update)
         {
             if (target == null || update == null)
             {
@@ -26,7 +26,7 @@ namespace Lykke.Domain.Prices
                 throw new InvalidOperationException(string.Format("Can't merge candles with different DateTime property. Source={0} Update={1}", target.ToString(), update.ToString()));
             }
 
-            return new Candle()
+            return new FeedCandle()
             {
                 Open = update.Open,
                 Close = update.Close,
@@ -37,10 +37,10 @@ namespace Lykke.Domain.Prices
             };
         }
 
-        public static string ToString(this ICandle candle)
+        public static string ToJson(this IFeedCandle candle)
         {
             return (candle != null)
-                ? $"{{ o:{candle.Open} c:{candle.Close} h:{candle.High} l:{candle.Low} buy:{candle.IsBuy} dt:{candle.DateTime} }}"
+                ? $"{{ open:{candle.Open} close:{candle.Close} high:{candle.High} low:{candle.Low} isBuy:{candle.IsBuy} dateTime:{candle.DateTime.ToString("o")} }}"
                 : string.Empty;
         }
     }

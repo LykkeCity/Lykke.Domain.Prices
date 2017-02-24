@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Lykke.Domain.Prices.Contracts
 {
-    public interface IOrder
+    public interface IOrderBook
     {
         string AssetPair { get; }
         bool IsBuy { get; }

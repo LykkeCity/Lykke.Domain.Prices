@@ -3,7 +3,7 @@ using Lykke.Domain.Prices.Contracts;
 
 namespace Lykke.Domain.Prices.Model
 {
-    public class Candle : ICandle
+    public class FeedCandle : IFeedCandle, IEquatable<FeedCandle>
     {
         public DateTime DateTime { get; set; }
         public double Open { get; set; }
@@ -12,7 +12,7 @@ namespace Lykke.Domain.Prices.Model
         public double Low { get; set; }
         public bool IsBuy { get; set; }
 
-        public bool Equals(ICandle other)
+        public bool Equals(FeedCandle other)
         {
             if (other != null) {
                 return this.DateTime == other.DateTime

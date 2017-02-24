@@ -10,7 +10,7 @@ namespace Lykke.Domain.Prices
 {
     public static class QuoteExtensions
     {
-        public static ICandle ToCandle(this IEnumerable<Quote> quotes, DateTime dateTime)
+        public static IFeedCandle ToCandle(this IEnumerable<Quote> quotes, DateTime dateTime)
         {
             if (quotes == null || !quotes.Any())
             {
@@ -19,7 +19,7 @@ namespace Lykke.Domain.Prices
 
             var sorted = quotes.OrderBy(q => q.Timestamp).ToList();
 
-            return new Candle()
+            return new FeedCandle()
             {
                 Open = sorted.First().Price,
                 Close = sorted.Last().Price,
@@ -30,10 +30,10 @@ namespace Lykke.Domain.Prices
             };
         }
 
-        public static string ToString(this IQuote quote)
+        public static string ToJson(this IQuote quote)
         {
             return (quote != null)
-                ? $"{{ asset:{quote.AssetPair} buy:{quote.IsBuy} price:{quote.Price} t:{quote.Timestamp} }}"
+                ? $"{{ assetPair:{quote.AssetPair}, isBuy:{quote.IsBuy}, price:{quote.Price}, timestamp:{quote.Timestamp.ToString("o") } }}"
                 : string.Empty;
         }
     }

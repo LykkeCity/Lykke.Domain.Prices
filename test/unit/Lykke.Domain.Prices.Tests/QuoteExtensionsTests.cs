@@ -34,10 +34,10 @@ namespace Lykke.Domain.Prices.Tests
             {
                 new Quote() { AssetPair = "btcusd", IsBuy = true, Price = 100, Timestamp = dt },
             };
-            ICandle result = quotes.ToCandle(dt);
+            IFeedCandle result = quotes.ToCandle(dt);
 
             Assert.NotNull(result);
-            Assert.True(result.Equals(new Candle() { Open = 100, Close = 100, High = 100, Low = 100, IsBuy = true, DateTime = dt }));
+            Assert.True(result.IsEqual(new FeedCandle() { Open = 100, Close = 100, High = 100, Low = 100, IsBuy = true, DateTime = dt }));
         }
 
         /// <summary>
@@ -53,10 +53,10 @@ namespace Lykke.Domain.Prices.Tests
                 new Quote() { AssetPair = "btcusd", IsBuy = true, Price = 100, Timestamp = dt },
                 new Quote() { AssetPair = "btcusd", IsBuy = true, Price = 101, Timestamp = dt.AddMinutes(1) }
             };
-            ICandle result = quotes.ToCandle(dt);
+            IFeedCandle result = quotes.ToCandle(dt);
 
             Assert.NotNull(result);
-            Assert.True(result.Equals(new Candle() { Open = 100, Close = 101, High = 101, Low = 100, IsBuy = true, DateTime = dt }));
+            Assert.True(result.IsEqual(new FeedCandle() { Open = 100, Close = 101, High = 101, Low = 100, IsBuy = true, DateTime = dt }));
         }
 
         /// <summary>
@@ -72,10 +72,27 @@ namespace Lykke.Domain.Prices.Tests
                 new Quote() { AssetPair = "btcusd", IsBuy = false, Price = 100, Timestamp = dt.AddMinutes(1) },
                 new Quote() { AssetPair = "btcusd", IsBuy = false, Price = 101, Timestamp = dt }
             };
-            ICandle result = quotes.ToCandle(dt);
+            IFeedCandle result = quotes.ToCandle(dt);
 
             Assert.NotNull(result);
-            Assert.True(result.Equals(new Candle() { Open = 101, Close = 100, High = 101, Low = 100, IsBuy = false, DateTime = dt }));
+            Assert.True(result.IsEqual(new FeedCandle() { Open = 101, Close = 100, High = 101, Low = 100, IsBuy = false, DateTime = dt }));
+        }
+    }
+
+    internal static class CandleExtensions
+    {
+        public static bool IsEqual(this IFeedCandle candle, IFeedCandle other)
+        {
+            if (other != null && candle != null)
+            {
+                return candle.DateTime == other.DateTime
+                    && candle.Open == other.Open
+                    && candle.Close == other.Close
+                    && candle.High == other.High
+                    && candle.Low == other.Low
+                    && candle.IsBuy == other.IsBuy;
+            }
+            return false;
         }
     }
 }

@@ -4,7 +4,7 @@ using Lykke.Domain.Prices.Contracts;
 
 namespace Lykke.Domain.Prices.Model
 {
-    public class Order : IOrder
+    public class OrderBook : IOrderBook
     {
         public string AssetPair { get; set; }
         public bool IsBuy { get; set; }
