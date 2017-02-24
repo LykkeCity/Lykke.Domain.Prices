@@ -1,9 +1,10 @@
 ﻿{
-  "version": "0.3.1",
+  "version": "0.4.0",
   "authors": [ "pegilo" ],
   "description": "Lykke shared types related to pricing domain",
   "title": "Lykke.Domain.Prices",
-
+  "license": "MIT",
+  
   "dependencies": {
     "NETStandard.Library": "1.6.0"
   },
@@ -15,6 +16,10 @@
   },
 
   "packOptions": {
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/LykkeCity/Lykke.Domain.Prices.git"
+    },
     "summary": "Lykke shared types related to pricing domain",
     "tags": [ "domain", "pricing", "lykke" ],
     "owners": [ "Lykke" ],
