@@ -24,15 +24,5 @@ namespace Lykke.Domain.Prices.Model
             }
             return false;
         }
-
-        public override int GetHashCode()
-        {
-            return this.DateTime.GetHashCode()
-                ^ this.IsBuy.GetHashCode()
-                ^ this.Open.GetHashCode()
-                ^ this.Close.GetHashCode()
-                ^ this.High.GetHashCode()
-                ^ this.Low.GetHashCode();
-        }
     }
 }

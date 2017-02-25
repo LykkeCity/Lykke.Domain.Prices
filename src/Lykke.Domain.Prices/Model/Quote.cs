@@ -22,13 +22,5 @@ namespace Lykke.Domain.Prices.Model
                 && this.Price == other.Price
                 && this.Timestamp == other.Timestamp);
         }
-
-        public override int GetHashCode()
-        {
-            return (this.AssetPair ?? "").GetHashCode()
-                ^ this.IsBuy.GetHashCode()
-                ^ this.Price.GetHashCode()
-                ^ this.Timestamp.GetHashCode();
-        }
     }
 }
