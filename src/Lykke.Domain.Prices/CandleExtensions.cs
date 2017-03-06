@@ -19,11 +19,11 @@ namespace Lykke.Domain.Prices
 
             if (target.IsBuy != update.IsBuy)
             {
-                throw new InvalidOperationException(string.Format("Can't merge buy and sell candles. Source={0} Update={1}", target.ToString(), update.ToString()));
+                throw new InvalidOperationException(string.Format("Can't merge buy and sell candles. Source={0} Update={1}", target.ToJson(), update.ToJson()));
             }
             if (target.DateTime != update.DateTime)
             {
-                throw new InvalidOperationException(string.Format("Can't merge candles with different DateTime property. Source={0} Update={1}", target.ToString(), update.ToString()));
+                throw new InvalidOperationException(string.Format("Can't merge candles with different DateTime property. Source={0} Update={1}", target.ToJson(), update.ToJson()));
             }
 
             return new FeedCandle()
