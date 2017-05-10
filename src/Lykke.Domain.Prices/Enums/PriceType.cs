@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 
 namespace Lykke.Domain.Prices
 {
-    public enum FeedCandleType
+    public enum PriceType
     {
-        Sec,
-        Minute,
-        Min30,
-        Hour,
-        Day,
-        Month
+        Unspecified = 0,
+        Bid = 1,
+        Ask = 2,
+        Mid = 3
     }
 }
