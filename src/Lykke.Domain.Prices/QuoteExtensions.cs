@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-
 using Lykke.Domain.Prices.Contracts;
 using Lykke.Domain.Prices.Model;
 
@@ -10,7 +8,7 @@ namespace Lykke.Domain.Prices
 {
     public static class QuoteExtensions
     {
-        public static IFeedCandle ToCandle(this IEnumerable<Quote> quotes, DateTime dateTime)
+        public static IFeedCandle ToCandle(this IReadOnlyCollection<Quote> quotes, DateTime dateTime)
         {
             if (quotes == null || !quotes.Any())
             {
@@ -19,7 +17,7 @@ namespace Lykke.Domain.Prices
 
             var sorted = quotes.OrderBy(q => q.Timestamp).ToList();
 
-            return new FeedCandle()
+            return new FeedCandle
             {
                 Open = sorted.First().Price,
                 Close = sorted.Last().Price,
@@ -32,8 +30,8 @@ namespace Lykke.Domain.Prices
 
         public static string ToJson(this IQuote quote)
         {
-            return (quote != null)
-                ? $"{{ assetPair:{quote.AssetPair}, isBuy:{quote.IsBuy}, price:{quote.Price}, timestamp:{quote.Timestamp.ToString("o") } }}"
+            return quote != null
+                ? $"{{ assetPair:{quote.AssetPair}, isBuy:{quote.IsBuy}, price:{quote.Price}, timestamp:{quote.Timestamp:o} }}"
                 : string.Empty;
         }
     }
