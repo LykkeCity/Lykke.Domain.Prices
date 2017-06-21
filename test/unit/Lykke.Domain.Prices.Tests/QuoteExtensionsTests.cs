@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 using Lykke.Domain.Prices.Contracts;
 using Lykke.Domain.Prices.Model;
@@ -13,7 +11,7 @@ namespace Lykke.Domain.Prices.Tests
         [Fact]
         public void NullReturnedIfNullPassed()
         {
-            IEnumerable<Quote> quotes = null;
+            IReadOnlyCollection<Quote> quotes = null;
             var result = quotes.ToCandle(DateTime.Now);
             Assert.Null(result);
         }
@@ -21,7 +19,7 @@ namespace Lykke.Domain.Prices.Tests
         [Fact]
         public void NullReturnedIfEmptyCollectionPassed()
         {
-            IEnumerable<Quote> quotes = new Quote[0];
+            IReadOnlyCollection<Quote> quotes = new Quote[0];
             var result = quotes.ToCandle(DateTime.Now);
             Assert.Null(result);
         }
@@ -30,7 +28,7 @@ namespace Lykke.Domain.Prices.Tests
         public void SingleQuoteIsHandled()
         {
             DateTime dt = new DateTime(2017, 1, 1);
-            IEnumerable<Quote> quotes = new Quote[]
+            IReadOnlyCollection<Quote> quotes = new Quote[]
             {
                 new Quote() { AssetPair = "btcusd", IsBuy = true, Price = 100, Timestamp = dt },
             };
@@ -48,7 +46,7 @@ namespace Lykke.Domain.Prices.Tests
         {
             DateTime dt = new DateTime(2017, 1, 1);
 
-            IEnumerable<Quote> quotes = new Quote[]
+            IReadOnlyCollection<Quote> quotes = new Quote[]
             {
                 new Quote() { AssetPair = "btcusd", IsBuy = true, Price = 100, Timestamp = dt },
                 new Quote() { AssetPair = "btcusd", IsBuy = true, Price = 101, Timestamp = dt.AddMinutes(1) }
@@ -67,7 +65,7 @@ namespace Lykke.Domain.Prices.Tests
         {
             DateTime dt = new DateTime(2017, 1, 1);
 
-            IEnumerable<Quote> quotes = new Quote[]
+            IReadOnlyCollection<Quote> quotes = new Quote[]
             {
                 new Quote() { AssetPair = "btcusd", IsBuy = false, Price = 100, Timestamp = dt.AddMinutes(1) },
                 new Quote() { AssetPair = "btcusd", IsBuy = false, Price = 101, Timestamp = dt }
