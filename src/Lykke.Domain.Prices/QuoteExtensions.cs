@@ -8,14 +8,19 @@ namespace Lykke.Domain.Prices
 {
     public static class QuoteExtensions
     {
-        public static IFeedCandle ToCandle(this IReadOnlyCollection<Quote> quotes, DateTime dateTime)
+        public static IFeedCandle ToCandle(this IEnumerable<IQuote> quotes, DateTime dateTime)
         {
-            if (quotes == null || !quotes.Any())
+            if (quotes == null)
             {
                 return null;
             }
 
-            var sorted = quotes.OrderBy(q => q.Timestamp).ToList();
+            var sorted = quotes.OrderBy(q => q.Timestamp).ToArray();
+
+            if (!sorted.Any())
+            {
+                return null;
+            }
 
             return new FeedCandle
             {
@@ -24,6 +29,19 @@ namespace Lykke.Domain.Prices
                 High = sorted.Max(q => q.Price),
                 Low = sorted.Min(q => q.Price),
                 IsBuy = sorted.First().IsBuy,
+                DateTime = dateTime
+            };
+        }
+
+        public static IFeedCandle ToCandle(this IQuote quote, DateTime dateTime)
+        {
+            return new FeedCandle
+            {
+                Open = quote.Price,
+                Close = quote.Price,
+                High = quote.Price,
+                Low = quote.Price,
+                IsBuy = quote.IsBuy,
                 DateTime = dateTime
             };
         }
