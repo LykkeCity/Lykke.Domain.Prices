@@ -56,7 +56,7 @@ namespace Lykke.Domain.Prices
         /// and it will be used as merged candle <see cref="IFeedCandle.DateTime"/>
         /// </param>
         /// <returns>Merged candle, or null, if no candles to merge</returns>
-        public static IFeedCandle MergeAll(this ICollection<IFeedCandle> candles, DateTime? dateTime = null)
+        public static IFeedCandle MergeAll(this IEnumerable<IFeedCandle> candles, DateTime? dateTime = null)
         {
             if (candles == null)
             {
