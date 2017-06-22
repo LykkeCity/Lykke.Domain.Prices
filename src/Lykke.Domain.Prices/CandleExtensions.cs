@@ -130,9 +130,4 @@ namespace Lykke.Domain.Prices
                 : string.Empty;
         }
     }
-
-    public class CandlesMerger
-    {
-        
-    }
 }
