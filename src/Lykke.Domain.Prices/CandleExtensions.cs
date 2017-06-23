@@ -129,7 +129,7 @@ namespace Lykke.Domain.Prices
         /// </summary>
         /// <param name="candles">Candles to merge</param>
         /// <param name="newInterval">New interval</param>
-        public static IEnumerable<IFeedCandle> MergeIntoBiggerIntervals(IEnumerable<IFeedCandle> candles, TimeInterval newInterval)
+        public static IEnumerable<IFeedCandle> MergeIntoBiggerIntervals(this IEnumerable<IFeedCandle> candles, TimeInterval newInterval)
         {
             return candles
                 .GroupBy(c => c.DateTime.RoundTo(newInterval))

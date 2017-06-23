@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Lykke.Domain.Prices.Contracts;
 using Xunit;
 using Lykke.Domain.Prices.Model;
@@ -176,6 +177,40 @@ namespace Lykke.Domain.Prices.Tests
 
             // Act/Assert
             Assert.Throws(typeof(InvalidOperationException), () => candles.MergeAll());
+        }
+
+        [Fact]
+        public void MergingCandlesIntoBiggerIntervalWorks()
+        {
+            // Arrange
+            var candles = new IFeedCandle[]
+            {
+                new FeedCandle {Open = 2, Close = 3, High = 3, Low = 1, IsBuy = true, DateTime = new DateTime(2017, 1, 30)},
+                new FeedCandle {Open = 3, Close = 4, High = 5, Low = 3, IsBuy = true, DateTime = new DateTime(2017, 1, 31)},
+                new FeedCandle {Open = 1, Close = 4, High = 2, Low = 1, IsBuy = true, DateTime = new DateTime(2017, 2, 1)},
+                new FeedCandle {Open = 4, Close = 3, High = 6, Low = 4, IsBuy = true, DateTime = new DateTime(2017, 2, 2)}
+            };
+
+            // Act
+            var newCandles = candles.MergeIntoBiggerIntervals(TimeInterval.Month).ToArray();
+
+            // Assert
+            Assert.NotNull(newCandles);
+            Assert.Equal(2, newCandles.Length);
+
+            Assert.Equal(2, newCandles[0].Open);
+            Assert.Equal(4, newCandles[0].Close);
+            Assert.Equal(5, newCandles[0].High);
+            Assert.Equal(1, newCandles[0].Low);
+            Assert.Equal(true, newCandles[0].IsBuy);
+            Assert.Equal(new DateTime(2017, 1, 1), newCandles[0].DateTime);
+
+            Assert.Equal(1, newCandles[1].Open);
+            Assert.Equal(3, newCandles[1].Close);
+            Assert.Equal(6, newCandles[1].High);
+            Assert.Equal(1, newCandles[1].Low);
+            Assert.Equal(true, newCandles[1].IsBuy);
+            Assert.Equal(new DateTime(2017, 2, 1), newCandles[1].DateTime);
         }
     }
 }
