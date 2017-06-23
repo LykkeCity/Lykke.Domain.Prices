@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Lykke.Domain.Prices.Contracts;
 using Lykke.Domain.Prices.Model;
 
@@ -121,6 +122,18 @@ namespace Lykke.Domain.Prices
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Merges candles into bigger intervals (e.g. Minute -> Min15).
+        /// </summary>
+        /// <param name="candles">Candles to merge</param>
+        /// <param name="newInterval">New interval</param>
+        public static IEnumerable<IFeedCandle> MergeIntoBiggerIntervals(IEnumerable<IFeedCandle> candles, TimeInterval newInterval)
+        {
+            return candles
+                .GroupBy(c => c.DateTime.RoundTo(newInterval))
+                .Select(g => g.MergeAll(g.Key));
         }
 
         public static string ToJson(this IFeedCandle candle)
